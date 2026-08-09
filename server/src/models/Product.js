@@ -4,7 +4,9 @@ const productSchema = new mongoose.Schema(
     {
         title: {
             type: String,
-            required: true,
+    required: [true, "Product title is required"],
+    trim: true,
+    minlength: [2, "Title must contain at least 2 characters"]
         },
 
         description: {

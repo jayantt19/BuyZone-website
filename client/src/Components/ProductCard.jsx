@@ -16,13 +16,13 @@ const ProductCard = ({ product }) => {
     toggleWishlist(product);
   }}
 >
-  {isInWishlist(product.id) ? (
+  {isInWishlist(product._id) ? (
     <FaHeart color="red" size={20} />
   ) : (
     <FaRegHeart size={20} />
   )}
 </div>
-        <Link className='link' to={`/product/${product.id}`}>
+        <Link className='link' to={`/product/${product._id}`}>
           <img src={product.image} alt={product.title}/>
           <h3>{product.title}</h3>
           <p className='price'>${product.price}</p>

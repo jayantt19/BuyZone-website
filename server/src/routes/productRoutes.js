@@ -44,13 +44,21 @@ router.post("/", protect, admin, async (req, res) => {
         });
 
     } catch (error) {
-        console.error("Create product error:", error);
+    console.error("Create product error:", error);
 
-        res.status(500).json({
-            message: "Server error",
-            error: error.message
+    if (error.name === "ValidationError") {
+        return res.status(400).json({
+            message: "Validation failed",
+            errors: Object.values(error.errors).map(
+                (err) => err.message
+            )
         });
     }
+
+    res.status(500).json({
+        message: "Server error"
+    });
+}
 });
 
 //Get Product By ID
@@ -100,13 +108,21 @@ router.put("/:id", protect, admin, async (req, res)=> {
         });
 
     } catch (error) {
-        console.error("Update product error:", error);
+    console.error("Create product error:", error);
 
-        res.status(500).json({
-            message: "Server error",
-            error: error.message
+    if (error.name === "ValidationError") {
+        return res.status(400).json({
+            message: "Validation failed",
+            errors: Object.values(error.errors).map(
+                (err) => err.message
+            )
         });
     }
+
+    res.status(500).json({
+        message: "Server error"
+    });
+}
 });
 
 //DELETE PRODUCT
@@ -125,13 +141,21 @@ router.delete("/:id", protect, admin, async (req, res) => {
         });
 
     } catch (error) {
-        console.error("Delete product error:", error);
+    console.error("Create product error:", error);
 
-        res.status(500).json({
-            message: "Server error",
-            error: error.message
+    if (error.name === "ValidationError") {
+        return res.status(400).json({
+            message: "Validation failed",
+            errors: Object.values(error.errors).map(
+                (err) => err.message
+            )
         });
     }
+
+    res.status(500).json({
+        message: "Server error"
+    });
+}
 });
 
 module.exports = router;

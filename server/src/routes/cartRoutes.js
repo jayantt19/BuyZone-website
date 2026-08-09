@@ -34,7 +34,13 @@ router.post("/", protect, async (req, res) => {
         const { productId, quantity } = req.body;
 
         const product = await Product.findById(productId);
+         const finalQuantity = Number(quantity) || 1;
 
+if (finalQuantity < 1) {
+    return res.status(400).json({
+        message: "Quantity must be at least 1"
+    });
+}
         if (!product) {
             return res.status(404).json({
                 message: "Product not found"
@@ -51,7 +57,7 @@ router.post("/", protect, async (req, res) => {
                 items: [
                     {
                         product: productId,
-                        quantity: quantity || 1
+                     quantity: finalQuantity
                     }
                 ]
             });
@@ -61,11 +67,11 @@ router.post("/", protect, async (req, res) => {
             );
 
             if (existingItem) {
-                existingItem.quantity += quantity || 1;
+                existingItem.quantity += finalQuantity;
             } else {
                 cart.items.push({
                     product: productId,
-                    quantity: quantity || 1
+                    quantity: finalQuantity
                 });
             }
 
@@ -93,13 +99,13 @@ router.post("/", protect, async (req, res) => {
 //UPDATE CART Quatity
 router.put("/:productId", protect, async (req, res) => {
     try {
-        const { quantity } = req.body;
+        const finalQuantity = Number(quantity);
 
-        if (!quantity || quantity < 1) {
-            return res.status(400).json({
-                message: "Quantity must be at least 1"
-            });
-        }
+if (!Number.isInteger(finalQuantity) || finalQuantity < 1) {
+    return res.status(400).json({
+        message: "Quantity must be a positive integer"
+    });
+}
 
         const cart = await Cart.findOne({
             user: req.user
@@ -121,7 +127,7 @@ router.put("/:productId", protect, async (req, res) => {
             });
         }
 
-        item.quantity = quantity;
+      item.quantity = finalQuantity;
 
         await cart.save();
 

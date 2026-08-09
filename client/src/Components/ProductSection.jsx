@@ -12,7 +12,7 @@ const [sortOption, setSortOption] = useState("default");
   try {
     setLoading(true);
 
-    const response = await fetch("https://fakestoreapi.com/products");
+    const response = await fetch("http://localhost:5000/api/products");
     const data = await response.json();
 
     setProducts(data);

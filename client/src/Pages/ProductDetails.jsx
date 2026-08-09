@@ -12,7 +12,7 @@ const ProductDetails = () => {
 const { addToCart } = useContext(CartContext);
    useEffect(() => {
      const fetchProducts=async()=>{
-      const res=await fetch("https://fakestoreapi.com/products")
+      const res = await fetch("http://localhost:5000/api/products");
       const data=await res.json();
       setproducts(data);
      }
@@ -24,7 +24,9 @@ const { addToCart } = useContext(CartContext);
    useEffect(() => {
     const fetchProduct=async()=>{
 try{
-      const response=await fetch(`https://fakestoreapi.com/products/${id}`);
+      const response = await fetch(
+    `http://localhost:5000/api/products/${id}`
+);
       const data=await response.json();
       setproduct(data);
      }
@@ -41,10 +43,10 @@ try{
 
 const relatedProducts=products.filter((item)=>{
       return(
-        item.category===product.category && item.id!==product.id
+        item.category===product.category && item._id!==product._id
       );
     })
-  const filledstars= Math.round(product.rating.rate);
+  // const filledstars= Math.round(product.rating.rate);
   return (
     <>
         <div className='product-details'>
@@ -54,13 +56,13 @@ const relatedProducts=products.filter((item)=>{
       <div className="product-info">
         <h1>{product.title}</h1>
 
-        <div className="ratings">
+        {/* { <div className="ratings">
            <span className='rate'>{product.rating?.rate}</span>
           {[...Array(5)].map((_,index)=>index<filledstars?(<FaStar className='star' key={index}/>):(
       <FaRegStar className='empstar' key={index} />
        ))}
           <span className='count'>({product.rating?.count} reviews)</span>
-        </div>
+        </div> } */}
 
         <p className='category'>{product.category}</p>
         <h2>${product.price}</h2>
@@ -96,7 +98,7 @@ const relatedProducts=products.filter((item)=>{
         <h2>Related Products</h2>
         <div className="related-products-grid">
           {relatedProducts.slice(0,4).map((item)=>(
-            <ProductCard key={item.id} product={item}/>
+            <ProductCard key={item._id} product={item}/>
           ))}
         </div>
       </div>
