@@ -9,10 +9,12 @@ import { FaUser } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { FaBars } from "react-icons/fa";
 import { useState } from "react";
+import { AuthContext } from "../context/AuthContext";
 import { FaChevronDown } from "react-icons/fa";
 import { FaMapMarkerAlt } from "react-icons/fa"; 
 import { WishlistContext } from "../context/WishlistContext"
 const Navbar = ({ searchTerm, setSearchTerm }) => {
+  const { user, logout } = useContext(AuthContext);
  const { cart } = useContext(CartContext);
  const { wishlist } = useContext(WishlistContext);
 const [menuOpen, setMenuOpen] = useState(false);
@@ -62,9 +64,32 @@ const wishlistCount = wishlist.length;
 />
           <button className='submit'><FaSearch className='search-icon' /></button> 
         </div>
-        <Link to='/login' className='account'>
-           <button className='login'>Login</button>
-        </Link>
+       {user ? (
+    <div className="user-container">
+
+        <div
+            className="user-profile"
+            onClick={() => setMenuOpen(!menuOpen)}
+        >
+            <FaUser />
+            <span>{user.name}</span>
+        </div>
+
+        {menuOpen && (
+            <div className="logout-box">
+                <button onClick={logout}>
+                    Logout
+                </button>
+            </div>
+        )}
+
+    </div>
+) : (
+    <Link to="/login" className="login-link">
+        <FaUser />
+        <span>Login</span>
+    </Link>
+)}
       <Link to="/wishlist" className="wishlist">
     <FaHeart />
     <span className="wishlist-text">Wishlist</span>

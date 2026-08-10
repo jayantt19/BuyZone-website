@@ -203,7 +203,58 @@ body{
         display:none;
     }
 }
+ .user-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
 
+.login-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: inherit;
+}
+.user-container {
+    position: relative;
+    display: inline-block;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.logout-box {
+    position: absolute;
+    top: 45px;
+    right: 0;
+
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 10px 15px;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+
+    z-index: 1000;
+}
+
+.logout-box button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 5px 10px;
+}
+
+.logout-box button:hover {
+    color: red;
+}
 .menu-btn{
     display:none;
 }

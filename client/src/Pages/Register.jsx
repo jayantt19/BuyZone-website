@@ -15,6 +15,8 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+const [messageType, setMessageType] = useState("");
 
   const handleChange = (e) => {
     setFormData({
@@ -23,33 +25,73 @@ const Register = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setMessage("");
+
     if (
-      !formData.name ||
-      !formData.email ||
-      !formData.password ||
-      !formData.confirmPassword
+        !formData.name ||
+        !formData.email ||
+        !formData.password ||
+        !formData.confirmPassword
     ) {
-      toast.error("Please fill all fields");
-      return;
+        setMessage("Please fill all fields");
+        setMessageType("error");
+        return;
     }
 
     if (formData.password !== formData.confirmPassword) {
-      toast.error("Passwords do not match");
-      return;
+        setMessage("Passwords do not match");
+        setMessageType("error");
+        return;
     }
 
-    setLoading(true);
+    try {
+        setLoading(true);
 
-    setTimeout(() => {
-      setLoading(false);
-      toast.success("Registration Successful");
+        const response = await fetch(
+            "http://localhost:5000/api/auth/register",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name: formData.name,
+                    email: formData.email,
+                    password: formData.password
+                })
+            }
+        );
 
-      console.log(formData);
-    }, 2000);
-  };
+        const data = await response.json();
+
+        if (!response.ok) {
+            setMessage(data.message || "Registration failed");
+            setMessageType("error");
+            return;
+        }
+
+        setMessage(data.message);
+        setMessageType("success");
+
+        setFormData({
+            name: "",
+            email: "",
+            password: "",
+            confirmPassword: ""
+        });
+
+    } catch (error) {
+        console.error(error);
+        setMessage("Server error");
+        setMessageType("error");
+
+    } finally {
+        setLoading(false);
+    }
+};
 
   return (
     <div className="login-container">
@@ -130,6 +172,11 @@ const Register = () => {
         <p className="register-link">
           Already have an account? <Link to="/login">Login</Link>
         </p>
+        {message && (
+    <div className={`message ${messageType}`}>
+        {message}
+    </div>
+)}
       </form>
     </div>
   );
