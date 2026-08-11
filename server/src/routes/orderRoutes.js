@@ -7,6 +7,24 @@ const router = express.Router();
 
 router.post("/", protect, async (req, res) => {
     try {
+        const { shippingAddress } = req.body;
+
+        // Check shipping address
+        if (
+            !shippingAddress ||
+            !shippingAddress.name ||
+            !shippingAddress.phone ||
+            !shippingAddress.address ||
+            !shippingAddress.city ||
+            !shippingAddress.state ||
+            !shippingAddress.pincode
+        ) {
+            return res.status(400).json({
+                message: "Complete shipping address is required"
+            });
+        }
+
+        // Get user's cart
         const cart = await Cart.findOne({
             user: req.user
         }).populate("items.product");
@@ -17,12 +35,14 @@ router.post("/", protect, async (req, res) => {
             });
         }
 
+        // Create order items
         const orderItems = cart.items.map((item) => ({
             product: item.product._id,
             quantity: item.quantity,
             price: item.product.price
         }));
 
+        // Calculate total
         const totalAmount = orderItems.reduce(
             (total, item) => {
                 return total + item.price * item.quantity;
@@ -30,15 +50,19 @@ router.post("/", protect, async (req, res) => {
             0
         );
 
+        // Create order
         const order = await Order.create({
             user: req.user,
             items: orderItems,
-            totalAmount
+            totalAmount,
+            shippingAddress
         });
 
+        // Clear cart
         cart.items = [];
         await cart.save();
 
+        // Get created order with product details
         const createdOrder = await Order.findById(order._id)
             .populate("items.product");
 

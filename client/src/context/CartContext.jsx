@@ -3,6 +3,9 @@ import { createContext, useEffect, useState } from "react";
 export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
+    const clearCart = () => {
+    setCart([]);
+};
   const [cart, setCart] = useState([]);
 useEffect(() => {
     const fetchCart = async () => {
@@ -181,6 +184,7 @@ const removeFromCart = async (id) => {
          increaseQuantity,
          decreaseQuantity,
          removeFromCart,
+         clearCart
       }}
     >
       {children}

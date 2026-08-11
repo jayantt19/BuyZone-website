@@ -1,0 +1,153 @@
+.checkout {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.checkout h1 {
+    margin-bottom: 30px;
+    font-size: 32px;
+}
+
+.checkout-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+/* Shipping section */
+
+.shipping-section {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+.shipping-section h2 {
+    margin-bottom: 20px;
+}
+
+.shipping-section form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.shipping-section input {
+    padding: 13px;
+    border: 1px solid #ddd;
+    border-radius: 7px;
+    font-size: 15px;
+    outline: none;
+}
+
+.shipping-section input:focus {
+    border-color: #2874f0;
+}
+
+.shipping-section button {
+    padding: 14px;
+    border: none;
+    border-radius: 7px;
+    background: #2874f0;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.shipping-section button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Order summary */
+
+.checkout .order-summary {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+.order-summary h2 {
+    margin-bottom: 20px;
+}
+
+.checkout-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.checkout-item span:first-child {
+    max-width: 60%;
+}
+
+.order-summary hr {
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid #ddd;
+}
+
+.order-summary h3 {
+    font-size: 20px;
+}
+
+/* Success/Error message */
+
+.checkout-message {
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background: #e8f5e9;
+    color: #2e7d32;
+    font-weight: 600;
+}
+
+/* Empty cart */
+
+.checkout > div:first-child {
+    text-align: center;
+}
+
+.checkout > div:first-child button {
+    margin-top: 15px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 7px;
+    background: #2874f0;
+    color: white;
+    cursor: pointer;
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+
+    .checkout {
+        margin: 20px auto;
+        padding: 15px;
+    }
+
+    .checkout-container {
+        grid-template-columns: 1fr;
+    }
+
+    .checkout h1 {
+        font-size: 26px;
+    }
+
+    .checkout-item {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .checkout-item span:first-child {
+        max-width: 100%;
+    }
+}
