@@ -5,7 +5,7 @@ const productRoutes = require("./routes/productRoutes");
 const cartRoutes = require("./routes/cartRoutes");
 const wishlistRoutes = require("./routes/wishlistRoutes");
 const orderRoutes = require("./routes/orderRoutes");
-const adminOrderRoutes = require("./routes/adminOrderRoutes");
+const adminOrderRoutes = require("./routes/admin/adminOrderRoutes");
 
 const app=express();
 

@@ -1,0 +1,130 @@
+.admin-orders {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.admin-orders h1 {
+    margin-bottom: 30px;
+    font-size: 32px;
+}
+
+/* Order Card */
+
+.admin-order-card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Header */
+
+.admin-order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.admin-order-header h3 {
+    margin: 0 0 5px;
+}
+
+.admin-order-header p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.admin-order-header small {
+    color: #888;
+}
+
+.admin-order-header strong {
+    font-size: 22px;
+}
+
+/* Products */
+
+.admin-order-products {
+    padding: 20px 0;
+}
+
+.admin-order-product {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.admin-order-product img {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    border: 1px solid #eee;
+    border-radius: 8px;
+}
+
+.admin-order-product h4 {
+    margin: 0 0 10px;
+    font-size: 16px;
+}
+
+.admin-order-product p {
+    margin: 0;
+    color: #555;
+}
+
+/* Footer */
+
+.admin-order-footer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 15px;
+}
+
+.admin-order-footer span {
+    font-weight: 600;
+}
+
+.admin-order-footer select {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    .admin-orders {
+        margin: 20px auto;
+        padding: 12px;
+    }
+
+    .admin-order-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .admin-order-product {
+        align-items: flex-start;
+    }
+
+    .admin-order-product img {
+        width: 70px;
+        height: 70px;
+    }
+
+    .admin-order-footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

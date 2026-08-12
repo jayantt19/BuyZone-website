@@ -41,6 +41,8 @@ const handleSubmit = async (e) => {
         );
 
         const data = await response.json();
+        console.log("LOGIN RESPONSE:", data);
+console.log("JWT TOKEN:", data.token);
 
         if (!response.ok) {
             setMessage(data.message || "Login failed");
@@ -54,7 +56,11 @@ localStorage.setItem("user", JSON.stringify(data.user));
 
         setMessage(data.message);
         setMessageType("success");
-        navigate("/");
+      if (data.user.role === "admin") {
+    navigate("/admin");
+} else {
+    navigate("/");
+}
         window.location.reload();
 
 
