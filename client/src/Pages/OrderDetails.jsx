@@ -13,7 +13,7 @@ const OrderDetails = () => {
                 const token = localStorage.getItem("token");
 
                 const response = await fetch(
-                    `http://localhost:5000/api/orders/${id}`,
+                    `https://shopsy-website-backend.onrender.com/api/orders/${id}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`
