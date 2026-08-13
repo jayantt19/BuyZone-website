@@ -30,7 +30,7 @@ const ProductDetails = () => {
 const { addToCart } = useContext(CartContext);
    useEffect(() => {
      const fetchProducts=async()=>{
-      const res = await fetch("http://localhost:5000/api/products");
+      const res = await fetch("https://shopsy-website-backend.onrender.com/api/products");
       const data=await res.json();
       setproducts(data);
      }
@@ -43,7 +43,7 @@ const { addToCart } = useContext(CartContext);
     const fetchProduct=async()=>{
 try{
       const response = await fetch(
-    `http://localhost:5000/api/products/${id}`
+    `https://shopsy-website-backend.onrender.com/api/products/${id}`
 );
       const data=await response.json();
       setproduct(data);
