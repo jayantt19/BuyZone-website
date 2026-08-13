@@ -51,7 +51,7 @@ const handleSubmit = async (e) => {
         setLoading(true);
 
         const response = await fetch(
-            "http://localhost:5000/api/auth/register",
+            "https://shopsy-website-backend.onrender.com/api/auth/register",
             {
                 method: "POST",
                 headers: {
