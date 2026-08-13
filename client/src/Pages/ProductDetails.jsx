@@ -2,12 +2,30 @@ import React, { useContext, useEffect, useState } from 'react';
 import {useParams} from 'react-router-dom';
 import { FaStar,FaRegStar } from "react-icons/fa";
 import './ProductDetails.css'
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 import { CartContext } from '../context/CartContext';
 import ProductCard from '../Components/ProductCard';
 const ProductDetails = () => {
   const [product, setproduct] = useState(null);
   const [products, setproducts] = useState([]);
   const [quantity, setquantity] = useState(1);
+  const navigate = useNavigate();
+  const handleBuyNow = () => {
+    if (user?.role === "admin") {
+        return;
+    }
+
+    navigate("/checkout", {
+        state: {
+            product: {
+                ...product,
+                quantity
+            }
+        }
+    });
+};
+  const { user } = useContext(AuthContext);
    const {id}=useParams();
 const { addToCart } = useContext(CartContext);
    useEffect(() => {
@@ -79,17 +97,26 @@ const relatedProducts=products.filter((item)=>{
           }}>+</button>
         </div>
        <button
-  className="cartbtn"
-  onClick={() =>
-    addToCart({
-      ...product,
-      quantity,
-    })
-  }
+    className="cartbtn"
+    onClick={() => {
+        if (user?.role === "admin") {
+            return;
+        }
+
+        addToCart({
+            ...product,
+            quantity,
+        });
+    }}
 >
-  Add to Cart
+    Add to Cart
 </button>
-        <button className='buy-btn'>Buy now</button>
+        <button
+    className="buy-btn"
+    onClick={handleBuyNow}
+>
+    Buy Now
+</button>
       </div>
       </div>
 

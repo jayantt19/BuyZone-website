@@ -61,13 +61,13 @@ useEffect(() => {
         const data = await response.json();
 
         if (!response.ok) {
-            console.log(data);
+            
             return;
         }
 
         setCart(data.cart.items);
 
-        console.log("Product added to cart");
+        // console.log("Product added to cart");
     } catch (error) {
         console.error("Add to cart error:", error);
     }
@@ -165,7 +165,6 @@ const removeFromCart = async (id) => {
         const data = await response.json();
 
         if (!response.ok) {
-            console.log(data);
             return;
         }
 

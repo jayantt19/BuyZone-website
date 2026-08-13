@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FaSearch } from "react-icons/fa";
 import './Navbar.css';
 import { useContext } from "react";
@@ -18,6 +18,9 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
  const { cart } = useContext(CartContext);
  const { wishlist } = useContext(WishlistContext);
 const [menuOpen, setMenuOpen] = useState(false);
+useEffect(() => {
+    setMenuOpen(false);
+}, [user]);
 const wishlistCount = wishlist.length;
   const cartCount = cart.reduce(
     (total, item) => total + item.quantity,
@@ -47,13 +50,6 @@ const wishlistCount = wishlist.length;
         />
     </svg>
         </Link>
-        <div className='location'>
-          <span className='deliever'>Deliver to</span>
-            <div className='location-icon'>
-<div> <FaMapMarkerAlt /></div>
-<span className='update'>Mathura 281006</span>
-            </div>
-        </div>
         <div className='search-bar'>
          <input
   type="text"
@@ -90,25 +86,57 @@ const wishlistCount = wishlist.length;
         <span>Login</span>
     </Link>
 )}
-      <Link to="/wishlist" className="wishlist">
-    <FaHeart />
-    <span className="wishlist-text">Wishlist</span>
+      {user?.role === "admin" ? (
+    <div className="admin-nav-links">
+        <Link to="/admin">
+            Admin Dashboard
+        </Link>
 
-    {wishlistCount > 0 && (
-        <span className="wishlist-count">{wishlistCount}</span>
-    )}
-</Link>
+        <Link to="/admin/products">
+            Products
+        </Link>
 
-<Link to="/cart" className="cart">
-    <div className="cart-icon">
-        <FaShoppingCart />
-        {cartCount > 0 && (
-            <span className="cart-count">{cartCount}</span>
-        )}
+        <Link to="/admin/orders">
+            Orders
+        </Link>
     </div>
+) : (
+    <>
+        <Link to="/wishlist" className="wishlist">
+            <FaHeart />
 
-    <span className="cart-text">Cart</span>
-</Link>
+            <span className="wishlist-text">
+                Wishlist
+            </span>
+
+            {wishlistCount > 0 && (
+                <span className="wishlist-count">
+                    {wishlistCount}
+                </span>
+            )}
+        </Link>
+
+        <Link to="/orders" className="orders-link">
+            Orders
+        </Link>
+
+        <Link to="/cart" className="cart">
+            <div className="cart-icon">
+                <FaShoppingCart />
+
+                {cartCount > 0 && (
+                    <span className="cart-count">
+                        {cartCount}
+                    </span>
+                )}
+            </div>
+
+            <span className="cart-text">
+                Cart
+            </span>
+        </Link>
+    </>
+)}
         <button
   className="menu-btn"
   onClick={() => setMenuOpen(!menuOpen)}

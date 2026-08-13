@@ -41,8 +41,6 @@ const handleSubmit = async (e) => {
         );
 
         const data = await response.json();
-        console.log("LOGIN RESPONSE:", data);
-console.log("JWT TOKEN:", data.token);
 
         if (!response.ok) {
             setMessage(data.message || "Login failed");
@@ -50,18 +48,18 @@ console.log("JWT TOKEN:", data.token);
             return;
         }
 
-        // Save JWT
-       localStorage.setItem("token", data.token);
-localStorage.setItem("user", JSON.stringify(data.user));
+      // Update AuthContext
+login(data.token, data.user);
 
-        setMessage(data.message);
-        setMessageType("success");
-      if (data.user.role === "admin") {
+setMessage(data.message);
+setMessageType("success");
+
+if (data.user.role === "admin") {
     navigate("/admin");
 } else {
     navigate("/");
 }
-        window.location.reload();
+
 
 
     } catch (error) {

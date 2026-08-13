@@ -19,7 +19,6 @@ const AdminOrders = () => {
 
             const data = await response.json();
 
-            console.log("Admin orders:", data);
 
             if (!response.ok) {
                 console.log(data);
