@@ -43,7 +43,7 @@ const AdminOrders = () => {
             const token = localStorage.getItem("token");
 
             const response = await fetch(
-                `http://localhost:5000/api/admin/orders/${orderId}`,
+                `https://shopsy-website-backend.onrender.com/api/admin/orders/${orderId}`,
                 {
                     method: "PATCH",
                     headers: {

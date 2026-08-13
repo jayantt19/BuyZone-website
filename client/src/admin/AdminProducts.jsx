@@ -71,8 +71,8 @@ const AdminProducts = () => {
             const token = localStorage.getItem("token");
 
             const url = editingId
-                ? `http://localhost:5000/api/products/${editingId}`
-                : "http://localhost:5000/api/products";
+                ? `https://shopsy-website-backend.onrender.com/api/products/${editingId}`
+                : "https://shopsy-website-backend.onrender.com/api/products";
 
             const method = editingId ? "PUT" : "POST";
 
@@ -170,7 +170,7 @@ const AdminProducts = () => {
             const token = localStorage.getItem("token");
 
             const response = await fetch(
-                `http://localhost:5000/api/products/${id}`,
+                `https://shopsy-website-backend.onrender.com/api/products/${id}`,
                 {
                     method: "DELETE",
                     headers: {
