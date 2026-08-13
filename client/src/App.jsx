@@ -11,7 +11,7 @@ import ProductDetails from "./Pages/ProductDetails";
 
 import Checkout from "./Components/Checkout";
 import Orders from "./Components/Order";
-import OrderDetails from "./pages/OrderDetails";
+import OrderDetails from "./Pages/OrderDetails";
 
 import AdminRoute from "./admin/AdminRoute";
 import AdminDashboard from "./admin/AdminDashboard";
