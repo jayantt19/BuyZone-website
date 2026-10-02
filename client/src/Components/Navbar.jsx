@@ -6,7 +6,7 @@ import {
   FaHeart,
   FaBars,
 } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 
 import "./Navbar.css";
 
@@ -15,6 +15,7 @@ import { WishlistContext } from "../context/WishlistContext";
 import { AuthContext } from "../context/AuthContext";
 
 const Navbar = ({ searchTerm, setSearchTerm }) => {
+    const navigate = useNavigate();
   const { user, logout } = useContext(AuthContext);
   const { cart } = useContext(CartContext);
   const { wishlist } = useContext(WishlistContext);
@@ -25,6 +26,11 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setMenuOpen(false);
   }, [user]);
+
+   const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   const wishlistCount = wishlist.length;
 
@@ -75,7 +81,7 @@ const Navbar = ({ searchTerm, setSearchTerm }) => {
 
               {menuOpen && (
                 <div className="logout-box">
-                  <button onClick={logout}>
+                  <button onClick={handleLogout}>
                     Logout
                   </button>
                 </div>
