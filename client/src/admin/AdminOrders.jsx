@@ -9,7 +9,7 @@ const AdminOrders = () => {
             const token = localStorage.getItem("token");
 
             const response = await fetch(
-                "https://shopsy-website-backend.onrender.com/api/admin/orders",
+                "https://buy-zone-website-76k7.vercel.app/api/admin/orders",
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -35,6 +35,7 @@ const AdminOrders = () => {
     };
 
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         fetchOrders();
     }, []);
 
@@ -43,7 +44,7 @@ const AdminOrders = () => {
             const token = localStorage.getItem("token");
 
             const response = await fetch(
-                `https://shopsy-website-backend.onrender.com/api/admin/orders/${orderId}`,
+                `https://buy-zone-website-76k7.vercel.app/api/admin/orders/${orderId}`,
                 {
                     method: "PATCH",
                     headers: {

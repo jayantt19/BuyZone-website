@@ -13,7 +13,7 @@ const OrderDetails = () => {
                 const token = localStorage.getItem("token");
 
                 const response = await fetch(
-                    `http://localhost:5000/api/orders/${id}`,
+                    `https://buy-zone-website-76k7.vercel.app/api/orders/${id}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`

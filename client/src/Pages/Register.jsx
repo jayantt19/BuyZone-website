@@ -50,7 +50,7 @@ const handleSubmit = async (e) => {
         setLoading(true);
 
         const response = await fetch(
-            "http://localhost:5000/api/auth/register",
+            "https://buy-zone-website-76k7.vercel.app/api/auth/register",
             {
                 method: "POST",
                 headers: {

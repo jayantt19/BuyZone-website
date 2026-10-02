@@ -12,7 +12,7 @@ const [sortOption, setSortOption] = useState("default");
   try {
     setLoading(true);
 
-    const response = await fetch("http://localhost:5000/api/products");
+    const response = await fetch("https://buy-zone-website-76k7.vercel.app/api/products");
     const data = await response.json();
 
     setProducts(data);

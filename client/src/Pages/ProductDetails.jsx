@@ -48,7 +48,7 @@ const ProductDetails = () => {
     const fetchProducts = async () => {
       try {
         const res = await fetch(
-          "http://localhost:5000/api/products"
+          "https://buy-zone-website-76k7.vercel.app/api/products"
         );
 
         const data = await res.json();
@@ -68,7 +68,7 @@ const ProductDetails = () => {
     const fetchProduct = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/products/${id}`
+          `https://buy-zone-website-76k7.vercel.app/api/products/${id}`
         );
 
         const data = await response.json();

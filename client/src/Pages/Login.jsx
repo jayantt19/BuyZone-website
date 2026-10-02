@@ -30,7 +30,7 @@ const handleSubmit = async (e) => {
 
     try {
         const response = await fetch(
-            "http://localhost:5000/api/auth/login",
+            "https://buy-zone-website-76k7.vercel.app/api/auth/login",
             {
                 method: "POST",
                 headers: {

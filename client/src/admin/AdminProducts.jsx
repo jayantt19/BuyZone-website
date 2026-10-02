@@ -24,7 +24,7 @@ const AdminProducts = () => {
     const fetchProducts = async () => {
         try {
             const response = await fetch(
-                "https://shopsy-website-backend.onrender.com/api/products"
+                "https://buy-zone-website-76k7.vercel.app/api/products"
             );
 
             const data = await response.json();
@@ -71,8 +71,8 @@ const AdminProducts = () => {
             const token = localStorage.getItem("token");
 
             const url = editingId
-                ? `https://shopsy-website-backend.onrender.com/api/products/${editingId}`
-                : "https://shopsy-website-backend.onrender.com/api/products";
+                ? `https://buy-zone-website-76k7.vercel.app/api/products/${editingId}`
+                : "https://buy-zone-website-76k7.vercel.app/api/products";
 
             const method = editingId ? "PUT" : "POST";
 
@@ -170,7 +170,7 @@ const AdminProducts = () => {
             const token = localStorage.getItem("token");
 
             const response = await fetch(
-                `https://shopsy-website-backend.onrender.com/api/products/${id}`,
+                `https://buy-zone-website-76k7.vercel.app/api/products/${id}`,
                 {
                     method: "DELETE",
                     headers: {
