@@ -33,7 +33,9 @@ const ProductCard = ({ product }) => {
   };
 
   // ================= ADD TO CART =================
-  const handleAddToCart = () => {
+  const handleAddToCart = (e) => {
+       e.preventDefault();
+    e.stopPropagation();
     // Not logged in → Login
     if (!user) {
       navigate("/login");
