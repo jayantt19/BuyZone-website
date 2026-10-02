@@ -24,6 +24,11 @@ const ProductCard = ({ product }) => {
       return;
     }
 
+    // Admin cannot use wishlist
+    if (user.role === "admin") {
+      return;
+    }
+
     toggleWishlist(product);
   };
 
@@ -47,19 +52,21 @@ const ProductCard = ({ product }) => {
     <div className="product-card">
 
       {/* ================= WISHLIST ================= */}
-      <div
-        className="wishlist-icon"
-        onClick={handleWishlist}
-      >
-        {isInWishlist(product._id) ? (
-          <FaHeart color="red" size={20} />
-        ) : (
-          <FaRegHeart size={20} />
-        )}
-      </div>
+      {user?.role !== "admin" && (
+        <div
+          className="wishlist-icon"
+          onClick={handleWishlist}
+        >
+          {isInWishlist(product._id) ? (
+            <FaHeart color="red" size={20} />
+          ) : (
+            <FaRegHeart size={20} />
+          )}
+        </div>
+      )}
 
       {/* ================= PRODUCT ================= */}
-      {/* This remains accessible WITHOUT login */}
+      {/* Guests and logged-in users can view product */}
       <Link
         className="link"
         to={`/product/${product._id}`}

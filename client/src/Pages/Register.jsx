@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "./Login.css";
 
@@ -10,7 +10,7 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
-
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -81,7 +81,7 @@ const handleSubmit = async (e) => {
             password: "",
             confirmPassword: ""
         });
-
+          navigate("/login");
     } catch (error) {
         console.error(error);
         setMessage("Server error");
@@ -96,7 +96,7 @@ const handleSubmit = async (e) => {
     <div className="login-container">
       <form className="login-form" onSubmit={handleSubmit}>
         <h2>Create Account</h2>
-        <p>Join Shopzy and start shopping.</p>
+        <p>Join Buyzone and start shopping.</p>
 
         <div className="input-group">
           <label>Full Name</label>
