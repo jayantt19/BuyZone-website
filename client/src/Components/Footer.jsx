@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className='footer'>
         < div className="footer-container">
             <div className="footer-section">
-          <h2>Shopsy</h2>
+          <h2>BuyZone</h2>
           <p>
             Your one-stop destination for quality products
             at the best prices.
@@ -45,7 +45,7 @@ const Footer = () => {
         </div>
     </div>
      <div className="footer-bottom">
-        <p>© 2026 Shopsy. All Rights Reserved.</p>
+        <p>© 2026 BuyZone. All Rights Reserved.</p>
       </div>
     </footer>
   );

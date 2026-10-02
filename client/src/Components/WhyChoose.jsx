@@ -5,7 +5,7 @@ import "./WhyChoose.css"
 const WhyChoose = () => {
   return (
     <section className='whychoose'>
-      <h1>Why choose Shopsy</h1>
+      <h1>Why choose BuyZone</h1>
       <div className="features">
         <div className="feature-card">
             <FaShoppingCart className='feature-icon'/>

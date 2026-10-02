@@ -1,136 +1,222 @@
-import React, { useContext, useEffect, useState } from 'react';
-import {useParams} from 'react-router-dom';
-import { FaStar,FaRegStar } from "react-icons/fa";
-import './ProductDetails.css'
-import { useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { FaStar, FaRegStar } from "react-icons/fa";
+import "./ProductDetails.css";
+
 import { AuthContext } from "../context/AuthContext";
-import { CartContext } from '../context/CartContext';
-import ProductCard from '../Components/ProductCard';
+import { CartContext } from "../context/CartContext";
+import ProductCard from "../Components/ProductCard";
+
 const ProductDetails = () => {
-  const [product, setproduct] = useState(null);
-  const [products, setproducts] = useState([]);
-  const [quantity, setquantity] = useState(1);
+  const [product, setProduct] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [quantity, setQuantity] = useState(1);
+
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  const { user } = useContext(AuthContext);
+  const { addToCart } = useContext(CartContext);
+
+  // ================= BUY NOW =================
+
   const handleBuyNow = () => {
-    if (user?.role === "admin") {
-        return;
+    // Guest user → Login
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+
+    // Admin cannot buy
+    if (user.role === "admin") {
+      return;
     }
 
     navigate("/checkout", {
-        state: {
-            product: {
-                ...product,
-                quantity
-            }
-        }
+      state: {
+        product: {
+          ...product,
+          quantity,
+        },
+      },
     });
-};
-  const { user } = useContext(AuthContext);
-   const {id}=useParams();
-const { addToCart } = useContext(CartContext);
-   useEffect(() => {
-     const fetchProducts=async()=>{
-      const res = await fetch("https://shopsy-website-backend.onrender.com/api/products");
-      const data=await res.json();
-      setproducts(data);
-     }
-     fetchProducts();
-   }, [])
+  };
 
+  // ================= FETCH ALL PRODUCTS =================
 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch(
+          "https://shopsy-website-backend.onrender.com/api/products"
+        );
 
-   useEffect(() => {
-    const fetchProduct=async()=>{
-try{
-      const response = await fetch(
-    `https://shopsy-website-backend.onrender.com/api/products/${id}`
-);
-      const data=await response.json();
-      setproduct(data);
-     }
-     catch(err){
-      console.log(err);
-     }
+        const data = await res.json();
+
+        setProducts(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  // ================= FETCH SINGLE PRODUCT =================
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await fetch(
+          `https://shopsy-website-backend.onrender.com/api/products/${id}`
+        );
+
+        const data = await response.json();
+
+        setProduct(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchProduct();
+  }, [id]);
+
+  // ================= LOADING =================
+
+  if (!product) {
+    return <h2>Loading...</h2>;
+  }
+
+  // ================= RELATED PRODUCTS =================
+
+  const relatedProducts = products.filter((item) => {
+    return (
+      item.category === product.category &&
+      item._id !== product._id
+    );
+  });
+
+  // ================= ADD TO CART =================
+
+  const handleAddToCart = () => {
+    // Guest user → Login
+    if (!user) {
+      navigate("/login");
+      return;
     }
-     fetchProduct();
-   }, [id])
-   
-   if (!product) {
-  return <h2>Loading...</h2>;
-}
 
-const relatedProducts=products.filter((item)=>{
-      return(
-        item.category===product.category && item._id!==product._id
-      );
-    })
-  // const filledstars= Math.round(product.rating.rate);
+    // Admin cannot add to cart
+    if (user.role === "admin") {
+      return;
+    }
+
+    addToCart({
+      ...product,
+      quantity,
+    });
+  };
+
   return (
     <>
-        <div className='product-details'>
-      <div className="product-image">
-        <img src={product.image} alt={product.title} />
-      </div>
-      <div className="product-info">
-        <h1>{product.title}</h1>
+      <div className="product-details">
 
-        {/* { <div className="ratings">
-           <span className='rate'>{product.rating?.rate}</span>
-          {[...Array(5)].map((_,index)=>index<filledstars?(<FaStar className='star' key={index}/>):(
-      <FaRegStar className='empstar' key={index} />
-       ))}
-          <span className='count'>({product.rating?.count} reviews)</span>
-        </div> } */}
+        {/* ================= PRODUCT IMAGE ================= */}
 
-        <p className='category'>{product.category}</p>
-        <h2>${product.price}</h2>
-        <p className='description'>{product.description}</p>
-        <div className="quan">
-          <button onClick={()=>{
-            if(quantity!=1){
-            setquantity(quantity-1);
-            }
-          }}>-</button>
-          <span>{quantity}</span>
-          <button onClick={()=>{
-            setquantity(quantity+1);
-          }}>+</button>
+        <div className="product-image">
+          <img
+            src={product.image}
+            alt={product.title}
+          />
         </div>
-       <button
-    className="cartbtn"
-    onClick={() => {
-        if (user?.role === "admin") {
-            return;
-        }
 
-        addToCart({
-            ...product,
-            quantity,
-        });
-    }}
->
-    Add to Cart
-</button>
-        <button
-    className="buy-btn"
-    onClick={handleBuyNow}
->
-    Buy Now
-</button>
-      </div>
+        {/* ================= PRODUCT INFO ================= */}
+
+        <div className="product-info">
+
+          <h1>{product.title}</h1>
+
+          <p className="category">
+            {product.category}
+          </p>
+
+          <h2>
+            ${product.price}
+          </h2>
+
+          <p className="description">
+            {product.description}
+          </p>
+
+          {/* ================= QUANTITY ================= */}
+
+          <div className="quan">
+
+            <button
+              onClick={() => {
+                if (quantity !== 1) {
+                  setQuantity(quantity - 1);
+                }
+              }}
+            >
+              -
+            </button>
+
+            <span>{quantity}</span>
+
+            <button
+              onClick={() => {
+                setQuantity(quantity + 1);
+              }}
+            >
+              +
+            </button>
+
+          </div>
+
+          {/* ================= ADD TO CART ================= */}
+
+          <button
+            className="cartbtn"
+            onClick={handleAddToCart}
+          >
+            Add to Cart
+          </button>
+
+          {/* ================= BUY NOW ================= */}
+
+          <button
+            className="buy-btn"
+            onClick={handleBuyNow}
+          >
+            Buy Now
+          </button>
+
+        </div>
       </div>
 
-      {/* Related Products */}
+      {/* ================= RELATED PRODUCTS ================= */}
+
       <div className="related-products">
+
         <h2>Related Products</h2>
+
         <div className="related-products-grid">
-          {relatedProducts.slice(0,4).map((item)=>(
-            <ProductCard key={item._id} product={item}/>
-          ))}
+
+          {relatedProducts
+            .slice(0, 4)
+            .map((item) => (
+              <ProductCard
+                key={item._id}
+                product={item}
+              />
+            ))}
+
         </div>
+
       </div>
     </>
   );
-}
+};
 
 export default ProductDetails;
