@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
@@ -18,7 +19,7 @@ useEffect(() => {
             }
 
             const response = await fetch(
-                "https://shopsy-website-backend.onrender.com/api/cart",
+                "http://localhost:5000/api/cart",
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -46,7 +47,7 @@ useEffect(() => {
     try {
         const token = localStorage.getItem("token");
 
-        const response = await fetch("https://shopsy-website-backend.onrender.com/api/cart", {
+        const response = await fetch("http://localhost:5000/api/cart", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -83,7 +84,7 @@ const increaseQuantity = async (id) => {
         if (!item) return;
 
         const response = await fetch(
-            `https://shopsy-website-backend.onrender.com/api/cart/${id}`,
+            `http://localhost:5000/api/cart/${id}`,
             {
                 method: "PUT",
                 headers: {
@@ -121,7 +122,7 @@ const decreaseQuantity = async (id) => {
         if (!item || item.quantity <= 1) return;
 
         const response = await fetch(
-            `https://shopsy-website-backend.onrender.com/api/cart/${id}`,
+            `http://localhost:5000/api/cart/${id}`,
             {
                 method: "PUT",
                 headers: {
@@ -153,7 +154,7 @@ const removeFromCart = async (id) => {
         const token = localStorage.getItem("token");
 
         const response = await fetch(
-            `https://shopsy-website-backend.onrender.com/api/cart/${id}`,
+            `http://localhost:5000/api/cart/${id}`,
             {
                 method: "DELETE",
                 headers: {

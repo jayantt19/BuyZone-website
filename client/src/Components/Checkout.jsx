@@ -42,7 +42,7 @@ const Checkout = () => {
             const token = localStorage.getItem("token");
 
             const response = await fetch(
-                "https://shopsy-website-backend.onrender.com/api/orders",
+                "http://localhost:5000/api/orders",
                 {
                     method: "POST",
                     headers: {

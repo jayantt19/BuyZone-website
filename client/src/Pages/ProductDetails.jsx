@@ -48,7 +48,7 @@ const ProductDetails = () => {
     const fetchProducts = async () => {
       try {
         const res = await fetch(
-          "https://shopsy-website-backend.onrender.com/api/products"
+          "http://localhost:5000/api/products"
         );
 
         const data = await res.json();
@@ -68,7 +68,7 @@ const ProductDetails = () => {
     const fetchProduct = async () => {
       try {
         const response = await fetch(
-          `https://shopsy-website-backend.onrender.com/api/products/${id}`
+          `http://localhost:5000/api/products/${id}`
         );
 
         const data = await response.json();

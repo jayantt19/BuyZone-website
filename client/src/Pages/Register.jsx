@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { toast } from "react-toastify";
 import "./Login.css";
 
 const Register = () => {
@@ -51,7 +50,7 @@ const handleSubmit = async (e) => {
         setLoading(true);
 
         const response = await fetch(
-            "https://shopsy-website-backend.onrender.com/api/auth/register",
+            "http://localhost:5000/api/auth/register",
             {
                 method: "POST",
                 headers: {

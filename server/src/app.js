@@ -19,7 +19,7 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/admin/orders", adminOrderRoutes);
 
 app.get("/",(req,res)=>{
-   res.send("Shopzy Backend is running!");
+   res.send("Buyzone Backend is running!");
 })
 
 module.exports=app;
